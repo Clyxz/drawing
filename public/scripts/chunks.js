@@ -1,14 +1,14 @@
 function update_renderlist() {
     if (GLOBAL.workspace.rendering.position.chunk.x === null || GLOBAL.workspace.rendering.position.chunk.y === null) return
 
-    GLOBAL.workspace.rendering.renderlist = []
+    GLOBAL.workspace.rendering.renderlist = {}
     for (var y = GLOBAL.workspace.rendering.position.chunk.y - GLOBAL.workspace.rendering.distance;
             y <= GLOBAL.workspace.rendering.position.chunk.y + GLOBAL.workspace.rendering.distance;
             y++) {
         for (var x = GLOBAL.workspace.rendering.position.chunk.x - GLOBAL.workspace.rendering.distance;
                 x <= GLOBAL.workspace.rendering.position.chunk.x + GLOBAL.workspace.rendering.distance;
                 x++) {
-            GLOBAL.workspace.rendering.renderlist.push(generate_chunk_key(x, y))
+            GLOBAL.workspace.rendering.renderlist[generate_chunk_key(x, y)] = 1
         }
     }
     console.log("renderlist updated")
@@ -20,20 +20,6 @@ function generate_chunk_key(x, y) {
 
 function get_coordinates_from_chunk_key(key) {
     return key.split(":")
-}
-
-function get_rendered_chunks() {
-
-    for(var key of GLOBAL.workspace.rendering.renderlist) {
-        if (!GLOBAL.workspace.data.base64s[key]) {
-            // TODO: fetch serverdata
-            // TODO: Check if server response. Then continue
-
-            GLOBAL.workspace.data.base64s[key] = array_to_base64(create_empty_chunk())
-
-            // TODO: send to server
-        }
-    }
 }
 
 /*

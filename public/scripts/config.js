@@ -38,7 +38,7 @@ var GLOBAL = {
                 }
             },
             scale: 1,
-            renderlist: []
+            renderlist: {}
         },
         canvas: {
             colors: {
