@@ -124,8 +124,8 @@ zoom = (e) => {
 }
 
 draw = async() => {
-
-   clearCanvas()
+    const overlap = 1
+    clearCanvas()
 
     for (var key in GLOBAL.workspace.data.images) {
         GLOBAL.dom.context.drawImage(
@@ -133,12 +133,12 @@ draw = async() => {
             0,
             0,
             GLOBAL.workspace.rendering.chunksize, GLOBAL.workspace.rendering.chunksize,
-            (get_coordinates_from_chunk_key(key)[0] * GLOBAL.workspace.rendering.chunksize) * GLOBAL.workspace.rendering.scale +
-            Math.floor(GLOBAL.workspace.rendering.position.camera.focus.x - GLOBAL.workspace.rendering.position.camera.offset.x) * GLOBAL.workspace.rendering.scale,
-            (get_coordinates_from_chunk_key(key)[1] * GLOBAL.workspace.rendering.chunksize) * GLOBAL.workspace.rendering.scale + 
-            Math.floor(GLOBAL.workspace.rendering.position.camera.focus.y - GLOBAL.workspace.rendering.position.camera.offset.y) * GLOBAL.workspace.rendering.scale,
-            GLOBAL.workspace.rendering.chunksize * GLOBAL.workspace.rendering.scale,
-            GLOBAL.workspace.rendering.chunksize * GLOBAL.workspace.rendering.scale
+            (get_coordinates_from_chunk_key(key)[0] * GLOBAL.workspace.rendering.chunksize) * GLOBAL.workspace.rendering.scale - 1 / 2 +
+            Math.floor(GLOBAL.workspace.rendering.position.camera.focus.x - GLOBAL.workspace.rendering.position.camera.offset.x),
+            (get_coordinates_from_chunk_key(key)[1] * GLOBAL.workspace.rendering.chunksize) * GLOBAL.workspace.rendering.scale - 1 / 2 +
+            Math.floor(GLOBAL.workspace.rendering.position.camera.focus.y - GLOBAL.workspace.rendering.position.camera.offset.y),
+            GLOBAL.workspace.rendering.chunksize * GLOBAL.workspace.rendering.scale + 1,
+            GLOBAL.workspace.rendering.chunksize * GLOBAL.workspace.rendering.scale + 1
         );
     }
 }
